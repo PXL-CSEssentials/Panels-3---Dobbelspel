@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Panels_3___Dobbelspel</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Vuist.png" />
+    <None Remove="Wijsvinger_links.jpg" />
+    <None Remove="Wijsvinger_rechts.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Vuist.png" />
+    <Resource Include="Wijsvinger_links.jpg" />
+    <Resource Include="Wijsvinger_rechts.jpg" />
+  </ItemGroup>
+
+</Project>
