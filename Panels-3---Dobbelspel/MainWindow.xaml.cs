@@ -21,21 +21,21 @@ namespace Panels_3___Dobbelspel
     /// </summary>
     public partial class MainWindow : Window
     {
-        Random RandomNumber = new Random();
-        int gainPlayer = 0;
-        int gainComputer = 0;
-        int End = 0;
-        RadioButton RadioButtonSelected;
-        DispatcherTimer Timer;
+        Random _randomNumber = new Random();
+        int _gainPlayer = 0;
+        int _gainComputer = 0;
+        int _end = 0;
+        RadioButton _radioButtonSelected;
+        DispatcherTimer _timer;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            Timer = new DispatcherTimer();
-            Timer.Interval = new TimeSpan(0, 0, 1);
-            Timer.Tick += Timer_Tick;
-            Timer.Start();
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 1);
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -49,8 +49,8 @@ namespace Panels_3___Dobbelspel
             switch (sndr.Content)
             {
                 case "Dobbelen":
-                    int player = RandomNumber.Next(1, 7);
-                    int computer = RandomNumber.Next(1, 7);
+                    int player = _randomNumber.Next(1, 7);
+                    int computer = _randomNumber.Next(1, 7);
                     playerTextBox.Text += player + "\r\n";
                     computerTextBox.Text += computer + "\r\n";
                     if (player == computer)
@@ -61,14 +61,14 @@ namespace Panels_3___Dobbelspel
                     }
                     else if (player > computer)
                     {
-                        gainPlayerTextBlock.Text = $"{++gainPlayer} keer gewonnen";
+                        gainPlayerTextBlock.Text = $"{++_gainPlayer} keer gewonnen";
                         winnerLabel.Background = new SolidColorBrush(Colors.Green);
                         winnerLabel.Content = "Jij wint";
                         gainImage.Source = new BitmapImage(new Uri(@"\Wijsvinger_links.jpg", UriKind.RelativeOrAbsolute));
                     }
                     else
                     {
-                        gainComputerTextBlock.Text = $"{++gainComputer} keer gewonnen";
+                        gainComputerTextBlock.Text = $"{++_gainComputer} keer gewonnen";
                         winnerLabel.Background = new SolidColorBrush(Colors.Red);
                         winnerLabel.Content = "Computer wint";
                         gainImage.Source = new BitmapImage(new Uri(@"\Wijsvinger_rechts.jpg", UriKind.RelativeOrAbsolute));
@@ -76,7 +76,7 @@ namespace Panels_3___Dobbelspel
                     CheckFinalScore();
                     break;
                 case "Eindscore":
-                    string winner = gainPlayer > gainComputer ? "speler" : "computer";
+                    string winner = _gainPlayer > _gainComputer ? "speler" : "computer";
                     MessageBox.Show($"De winnaar is de {winner}!");
                     ResetGame();
                     break;
@@ -86,7 +86,7 @@ namespace Panels_3___Dobbelspel
 
         private void CheckFinalScore()
         {
-            if (gainPlayer == End || gainComputer == End)
+            if (_gainPlayer == _end || _gainComputer == _end)
             {
                 playButton.Content = "Eindscore";
             }
@@ -95,7 +95,7 @@ namespace Panels_3___Dobbelspel
         private void ResetGame()
         {
             playButton.IsEnabled = false;
-            RadioButtonSelected.IsChecked = false;
+            _radioButtonSelected.IsChecked = false;
             infoLabel.Content = "";
             gainImage.Source = null;
         }
@@ -104,8 +104,8 @@ namespace Panels_3___Dobbelspel
         {
             playButton.Content = "Dobbelen";
             playButton.IsEnabled = true;
-            gainComputer = 0;
-            gainPlayer = 0;
+            _gainComputer = 0;
+            _gainPlayer = 0;
             winnerLabel.Content = "";
             gainPlayerTextBlock.Text = "";
             gainComputerTextBlock.Text = "";
@@ -116,20 +116,20 @@ namespace Panels_3___Dobbelspel
         private void radioButton_Checked(object sender, RoutedEventArgs e)
         {
             StartGame();
-            RadioButtonSelected = (RadioButton)sender;
-            if (RadioButtonSelected.Name == "fiveRadioButton")
+            _radioButtonSelected = (RadioButton)sender;
+            if (_radioButtonSelected.Name == "fiveRadioButton")
             {
-                End = 5;
+                _end = 5;
             }
-            else if (RadioButtonSelected.Name == "tenRadioButton")
+            else if (_radioButtonSelected.Name == "tenRadioButton")
             {
-                End = 10;
+                _end = 10;
             }
-            if (RadioButtonSelected.Name == "fifteenRadioButton")
+            if (_radioButtonSelected.Name == "fifteenRadioButton")
             {
-                End = 15;
+                _end = 15;
             }
-            infoLabel.Content = Title = $"Eerste van {End} wint";
+            infoLabel.Content = Title = $"Eerste van {_end} wint";
         }
     }
 }
